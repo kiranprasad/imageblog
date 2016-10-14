@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Blog</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+
+	</head>
+	<body>
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <!-- Navbar content -->
+  <div class="nav navbar-nav">
+
+  <a class="nav-item nav-link active" href="{% url 'blog:index' %}">Home<span class="sr-only">(current)</span></a>
+  <a class="nav-item nav-link" href="{% url 'blog:newpost' %}">New</a>
+</div>
+<form class="form-inline pull-xs-right">
+  <input class="form-control" type="text" placeholder="Search">
+  <button class="btn btn-outline-info" type="submit">Search</button>
+</form>
+</nav>
+<div class="jumbotron text-xs-center">
+
+
+		<h1 class="display-3 ">Hello, world!</h1>
+
+  <p class="lead">This is a simple blog built using Django and bootstrap 4. Built using no external CSS :P It was hard, phew.</p>
+  <hr class="m-y-2">
+  <p>My my, the typography in bootstrap v.4 is muuuuch better.</p>
+<p class="display-4">
+	Posts
+</p>
+</div>
+<div class="container">
+
+	{% if all_posts %}
+
+    {% for post in all_posts %}
+	<div class="row">
+		<div class="col-xs-6 offset-xs-3">
+<a href="{% url 'blog:detail' post.title %}" class="h2 ">{{ post.title }}</a>
+<p class="lead text-primary">
+	{{post.tags}}
+</p>
+		</div>
+<div class="col-xs-3">
+<p class=" display-5">
+
+	{{post.created_at}}
+</p>
+</div>
+	</div>
+
+
+    {% endfor %}
+
+{% else %}
+    <p>Write your first post today! <a href="{% url 'blog:newpost' %}" class="btn btn-info ">New</a></p>
+{% endif %}
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+	</body>
+</html>

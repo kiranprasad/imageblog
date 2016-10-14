@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Blog</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
+
+	</head>
+	<body>
+
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+  <!-- Navbar content -->
+  <div class="nav navbar-nav">
+
+  <a class="nav-item nav-link " href="{% url 'blog:index' %}">Home</a>
+  <a class="nav-item nav-link" href="{% url 'blog:newpost' %}">New</a>
+</div>
+<form class="form-inline pull-xs-right">
+  <input class="form-control" type="text" placeholder="Search">
+  <button class="btn btn-outline-info" type="submit">Search</button>
+</form>
+</nav>
+<div class="jumbotron text-xs-center">
+
+
+		<h1 class="display-3 ">Hello, world!</h1>
+
+  <p class="lead">This is a simple blog built using Django and bootstrap 4. Built using no external CSS :P It was hard, phew.</p>
+  <hr class="m-y-2">
+  <p>My my, the typography in bootstrap v.4 is muuuuch better.</p>
+
+</div>
+<div class="container">
+	<div class="row text-xs-center">
+		<div class="card card-block">
+			<p class="display-4">
+  		  	{{post.title}}
+  		  </p>
+		  <p class="card-text">{{post.content}}</p>
+		  <br><br>
+		  <p class="display-4">
+		  	Comments
+		  </p>
+		  {% if all_comments %}
+
+			{% for comment in all_comments %}
+		  <div class="row">
+			  <div class="col-xs-6 text-xs-justify ">
+		<p class="h3 ">{{ comment.content }}</a>
+
+		</div>
+		<div class="col-xs-6 text-xs-justify ">
+  <p class="lead ">{{ comment.posted_at }}</a>
+
+  </div>
+		  </div>
+
+
+			{% endfor %}
+			{% endif %}
+
+		  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+		  <form  action="{% url 'blog:newcomment' post.title %}" method=POST class="form-inline" validate>
+		{% csrf_token %}
+
+		<div class="form-group">
+
+	      <div class="input-group">
+
+	        <input type="text" class="form-control" id="exampleInputAmount" placeholder="Comment" name = "content">
+
+	      </div>
+	    </div>
+	    <button type="submit" class="btn btn-outline-info">Submit</button>
+		</form>
+		</div>
+	</div>
+	<br><br>
+
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+	</body>
+</html>
